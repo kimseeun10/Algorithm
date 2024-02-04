@@ -1,0 +1,25 @@
+-- 코드를 입력하세요
+WITH TMP AS(
+
+    SELECT *
+    FROM ONLINE_SALE
+    WHERE TO_CHAR(SALES_DATE, 'YYYY-MM-DD') LIKE '2022-03%'
+    
+    UNION ALL
+    
+    SELECT OFFLINE_SALE_ID
+        ,   NULL                     
+        ,   PRODUCT_ID
+        ,   SALES_AMOUNT
+        ,   SALES_DATE
+        FROM OFFLINE_SALE
+        WHERE TO_CHAR(SALES_DATE, 'YYYY-MM-DD') LIKE '2022-03%'
+    
+)
+
+SELECT      TO_CHAR(SALES_DATE,'YYYY-MM-DD') SALES_DATE
+        ,   PRODUCT_ID
+        ,   USER_ID
+        ,   SALES_AMOUNT
+FROM        TMP
+ORDER BY    SALES_DATE ASC, PRODUCT_ID ASC, USER_ID ASC
