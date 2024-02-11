@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
 
@@ -6,19 +7,12 @@ public class Main {
 		
 		Scanner sc = new Scanner(System.in);
 	
-		String S = sc.nextLine().trim(); // 공백제거
-		// 단어의 개수 출력
-		
-		String [] s = S.split(" ");
-		
-		if(S.isEmpty() == false) {
-			System.out.println(s.length);
-		}else {
-			System.out.println(0);
-		}
+		String S = sc.nextLine(); 
 		
 		sc.close();
 		
+		StringTokenizer st = new StringTokenizer(S, " ");
+		System.out.println(st.countTokens());
 	}
 	
 }
