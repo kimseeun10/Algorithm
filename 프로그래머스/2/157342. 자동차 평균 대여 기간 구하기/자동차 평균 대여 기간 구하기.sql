@@ -1,0 +1,9 @@
+-- 코드를 입력하세요
+-- 대여한 날짜로부터 시작이니까 +1
+-- 22년8월1일 ~ 22년8월2일까지 대여
+-- end_date-start_date하면 값은 1 실직상 대여 기간은 2일 그래서 +1
+SELECT CAR_ID, ROUND(AVG(END_DATE-START_DATE+1),1) AS AVERAGE_DURATION
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY
+GROUP BY CAR_ID
+HAVING AVG(END_DATE-START_DATE+1) >= 7
+ORDER BY 2 DESC, 1 DESC;
