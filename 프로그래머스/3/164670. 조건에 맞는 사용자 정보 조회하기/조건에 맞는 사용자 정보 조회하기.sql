@@ -1,0 +1,10 @@
+-- 코드를 입력하세요
+SELECT B.USER_ID, A.NICKNAME, A.CITY||' '||A.STREET_ADDRESS1||' '||A.STREET_ADDRESS2 AS 전체주소, 
+        SUBSTR(A.TLNO,1,3)||'-'||SUBSTR(A.TLNO,4,4)||'-'||SUBSTR(A.TLNO,8) AS 전화번호
+FROM USED_GOODS_USER A JOIN (SELECT B.USER_ID
+                    FROM USED_GOODS_BOARD A JOIN USED_GOODS_USER B
+                    ON A.WRITER_ID = B.USER_ID
+                    GROUP BY B.USER_ID
+                    HAVING COUNT(*) >= 3) B
+ON A.USER_ID = B.USER_ID
+ORDER BY 1 DESC;
