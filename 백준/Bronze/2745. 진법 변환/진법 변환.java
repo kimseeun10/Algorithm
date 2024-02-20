@@ -1,16 +1,19 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
 
-		Scanner sc = new Scanner(System.in);
-		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		// 문제 A: 10, B: 11, ..., F: 15, ..., Y: 34, Z: 35 
 		//A는 65 Z는 90 (아스키코드) - 55 해주기
 		
-		String N = sc.next(); 
-		int B = sc.nextInt(); 
+		String N = st.nextToken(); 
+		int B = Integer.parseInt(st.nextToken()); 
 		
 		int last = 1;
 		int result = 0;
@@ -25,5 +28,8 @@ public class Main {
 			last *= B;
 		}
 		System.out.println(result);
+		
+		br.close();
+
 	}
 }
