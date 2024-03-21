@@ -1,18 +1,19 @@
 -- 코드를 입력하세요
-SELECT      YEAR
-        ,   MONTH*1             MONTH
-        ,   GENDER
-        ,   COUNT(USER_ID)      USERS
-FROM        (
-            SELECT      DISTINCT
-                        TO_CHAR(B.SALES_DATE, 'YYYY')   YEAR
-                    ,   TO_CHAR(B.SALES_DATE, 'MM')     MONTH
-                    ,   A.GENDER
-                    ,   A.USER_ID
-            FROM        USER_INFO   A
-                    ,   ONLINE_SALE B
-            WHERE  A.USER_ID = B.USER_ID
-                    AND A.GENDER IS NOT NULL
-            )
-GROUP BY    YEAR, MONTH, GENDER
-ORDER BY    YEAR, MONTH, GENDER
+WITH INFO_TABLE AS (
+    SELECT 
+        YEAR(a.SALES_DATE) AS SALES_YEAR,
+        MONTH(a.SALES_DATE) AS SALES_MONTH,
+        b.GENDER, a.USER_ID
+    FROM ONLINE_SALE a, USER_INFO b
+    WHERE 
+        a.USER_ID = b.USER_ID
+        AND b.GENDER IS NOT NULL
+)
+SELECT
+    SALES_YEAR AS "YEAR",
+    SALES_MONTH AS "MONTH",
+    GENDER,
+    COUNT(DISTINCT USER_ID) AS USERS
+FROM INFO_TABLE
+GROUP BY SALES_YEAR, SALES_MONTH, GENDER
+ORDER BY SALES_YEAR ASC, SALES_MONTH ASC, GENDER ASC;
